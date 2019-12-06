@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/screen/shape_shifting/screen.dart';
 
 import 'package:flutter_animation/utils/colors.dart' as colors;
 import 'package:flutter_animation/screen/fade_in/screen.dart';
@@ -24,7 +25,19 @@ class HomeScreen extends StatelessWidget {
             child: InkWell(
               onTap: () => _navigate(item, context),
               child: Center(
-                child: Text(item['title']),
+                child: Text(
+                  item['title'],
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10,
+                          color: Colors.black26,
+                          offset: Offset(5, 10)
+                        )
+                      ]),
+                ),
               ),
             ),
             color: item['color'],
@@ -45,6 +58,12 @@ class HomeScreen extends StatelessWidget {
           context,
           FadeInScreen.routeName,
           arguments: FadeInArguments(item['title']),
+        );
+        break;
+      case 2:
+        Navigator.pushNamed(
+          context,
+          ShapeShiftingScreen.routeName,
         );
         break;
       default:

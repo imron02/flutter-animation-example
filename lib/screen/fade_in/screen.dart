@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
+
 import 'package:flutter_animation/screen/fade_in/arguments.dart';
 
 const owl_url =
@@ -22,30 +24,38 @@ class _FadeInScreenState extends State<FadeInScreen> {
       appBar: AppBar(
         title: Text(args.tagHero),
       ),
-      body: Column(
-        children: <Widget>[
-          Hero(
-            tag: args.tagHero,
-            child: Image.network(owl_url),
-          ),
-          MaterialButton(
-            child: Text('Show details'),
-            onPressed: () => setState(() {
-              opacityLevel = 1;
-            }),
-          ),
-          AnimatedOpacity(
-            opacity: opacityLevel,
-            duration: Duration(seconds: 2),
-            child: Column(
-              children: <Widget>[
-                Text('Type: Owl'),
-                Text('Age: 39'),
-                Text('Employment: None'),
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Hero(
+              tag: args.tagHero,
+              child: FadeInImage.memoryNetwork(
+                height: 350,
+                width: MediaQuery.of(context).size.width,
+                fit: BoxFit.cover,
+                placeholder: kTransparentImage,
+                image: owl_url,
+              ),
             ),
-          )
-        ],
+            MaterialButton(
+              child: Text('Show details'),
+              onPressed: () => setState(() {
+                opacityLevel = 1;
+              }),
+            ),
+            AnimatedOpacity(
+              opacity: opacityLevel,
+              duration: Duration(seconds: 2),
+              child: Column(
+                children: <Widget>[
+                  Text('Type: Owl'),
+                  Text('Age: 39'),
+                  Text('Employment: None'),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

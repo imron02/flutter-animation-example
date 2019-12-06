@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_animation/screen/home/screen.dart';
 import 'package:flutter_animation/screen/fade_in/screen.dart';
+import 'package:flutter_animation/screen/shape_shifting/screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
       initialRoute: HomeScreen.routeName,
       routes: {
         HomeScreen.routeName: (context) => HomeScreen(),
-        FadeInScreen.routeName: (context) => FadeInScreen()
+        FadeInScreen.routeName: (context) => FadeInScreen(),
+        ShapeShiftingScreen.routeName: (context) => ShapeShiftingScreen()
       },
     );
   }
