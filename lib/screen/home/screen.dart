@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/screen/animation_controller/screen.dart';
 import 'package:flutter_animation/screen/shape_shifting/screen.dart';
 
 import 'package:flutter_animation/utils/colors.dart' as colors;
@@ -11,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   final List<Map> cardList = <Map>[
     {'index': 1, 'title': 'Fade-in', 'color': colors.mandysPink},
     {'index': 2, 'title': 'Shape-shifting', 'color': colors.deepBlush},
-    {'index': 3, 'title': 'Animation 3', 'color': colors.moodyBlue},
+    {'index': 3, 'title': 'AnimationController', 'color': colors.moodyBlue},
     {'index': 4, 'title': 'Animation 4', 'color': colors.viking}
   ];
   final List<Widget> gridList = [];
@@ -32,10 +33,9 @@ class HomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       shadows: [
                         Shadow(
-                          blurRadius: 10,
-                          color: Colors.black26,
-                          offset: Offset(5, 10)
-                        )
+                            blurRadius: 10,
+                            color: Colors.black26,
+                            offset: Offset(5, 10))
                       ]),
                 ),
               ),
@@ -61,10 +61,10 @@ class HomeScreen extends StatelessWidget {
         );
         break;
       case 2:
-        Navigator.pushNamed(
-          context,
-          ShapeShiftingScreen.routeName,
-        );
+        Navigator.pushNamed(context, ShapeShiftingScreen.routeName);
+        break;
+      case 3:
+        Navigator.pushNamed(context, AnimationScreen.routeName);
         break;
       default:
         break;
