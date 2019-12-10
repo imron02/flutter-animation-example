@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animation/screen/animation_controller/screen.dart';
-import 'package:flutter_animation/screen/shape_shifting/screen.dart';
 
 import 'package:flutter_animation/utils/colors.dart' as colors;
 import 'package:flutter_animation/screen/fade_in/screen.dart';
 import 'package:flutter_animation/screen/fade_in/arguments.dart';
+import 'package:flutter_animation/screen/animation_controller/screen.dart';
+import 'package:flutter_animation/screen/chat/screen.dart';
+import 'package:flutter_animation/screen/shape_shifting/screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/';
@@ -13,7 +14,7 @@ class HomeScreen extends StatelessWidget {
     {'index': 1, 'title': 'Fade-in', 'color': colors.mandysPink},
     {'index': 2, 'title': 'Shape-shifting', 'color': colors.deepBlush},
     {'index': 3, 'title': 'AnimationController', 'color': colors.moodyBlue},
-    {'index': 4, 'title': 'Animation 4', 'color': colors.viking}
+    {'index': 4, 'title': 'Chat-animation', 'color': colors.viking}
   ];
   final List<Widget> gridList = [];
 
@@ -65,6 +66,9 @@ class HomeScreen extends StatelessWidget {
         break;
       case 3:
         Navigator.pushNamed(context, AnimationScreen.routeName);
+        break;
+      case 4:
+        Navigator.pushNamed(context, ChatScreen.routeName);
         break;
       default:
         break;
