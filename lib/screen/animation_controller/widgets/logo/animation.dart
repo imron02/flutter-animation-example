@@ -13,7 +13,7 @@ class TransitionWidget extends StatelessWidget {
     return Center(
       child: AnimatedBuilder(
         animation: animation,
-        builder: (context, chid) {
+        builder: (context, child) {
           return Opacity(
             opacity: _opacityTween.evaluate(animation),
             child: Container(
