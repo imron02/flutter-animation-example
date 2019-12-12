@@ -13,53 +13,45 @@ class CookingScreen extends StatefulWidget {
 
 class _CookingScreenState extends State<CookingScreen>
     with TickerProviderStateMixin {
-  /// Plate animation
   AnimationController _controller;
-  Animation<double> _antiClockRotationWiseAnimation;
-  Animation<double> _clockWiseRotationAnimation;
+  AnimationController _textColorController;
+  AnimationController _textOpacityController;
+
+  Animation<double> _animation;
+  Animation<Color> _textColorAnimation;
+  Animation<double> _textOpacityAnimation;
+
   Tween<double> _antiClockWiseRotationTween;
   Tween<double> _clockWiseRotationTween;
+
   bool isClockWise = false;
   double rotationValue = 0.0;
   int currentIndex = 1;
   bool isBgBlack = false;
   double blackBgHeight = 0.0;
 
-  /// Food page description
-  AnimationController _textOpacityController;
-  Animation<double> _textOpacityAnimation;
-  AnimationController _textColorController;
-  Animation<Color> _textColorAnimation;
-
   @override
   void initState() {
     super.initState();
+    _clockWiseRotationTween = Tween<double>(begin: pi, end: 2 * pi);
+    _antiClockWiseRotationTween = Tween<double>(begin: pi, end: -2 * pi);
 
-    // Plate animation
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(seconds: 2),
     );
-    _clockWiseRotationTween = Tween<double>(end: 2 * pi);
-    _clockWiseRotationAnimation = _clockWiseRotationTween.animate(
-      CurvedAnimation(parent: _controller, curve: Curves.elasticOut),
+    _textColorController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
     );
-
-    _antiClockWiseRotationTween = Tween<double>(end: -2 * pi);
-    _antiClockRotationWiseAnimation = _antiClockWiseRotationTween.animate(
-      CurvedAnimation(parent: _controller, curve: Curves.elasticOut)
-        ..addListener(() {
-          setState(() {
-            rotationValue = isClockWise
-                ? _clockWiseRotationAnimation.value
-                : _antiClockRotationWiseAnimation.value;
-          });
-        }),
-    );
-
-    // Page description animation
     _textOpacityController = AnimationController(
-        duration: const Duration(milliseconds: 400), vsync: this);
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.elasticOut);
+    _textColorAnimation = ColorTween(begin: Colors.black, end: Colors.white)
+        .animate(_textColorController);
     _textOpacityAnimation =
         Tween<double>(begin: 1, end: 0.0).animate(_textOpacityController)
           ..addStatusListener((status) {
@@ -68,10 +60,6 @@ class _CookingScreenState extends State<CookingScreen>
               _textOpacityController.reverse();
             }
           });
-    _textColorController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 400));
-    _textColorAnimation = ColorTween(begin: Colors.black, end: Colors.white)
-        .animate(_textColorController);
   }
 
   @override
@@ -102,7 +90,6 @@ class _CookingScreenState extends State<CookingScreen>
 
       isBgBlack = !isBgBlack;
       setState(() {
-        isBgBlack = isBgBlack;
         blackBgHeight = isBgBlack ? MediaQuery.of(context).size.height : 0.0;
       });
     }
@@ -131,7 +118,9 @@ class _CookingScreenState extends State<CookingScreen>
         child: Align(
           alignment: Alignment.centerRight,
           child: Transform.rotate(
-            angle: rotationValue,
+            angle: isClockWise
+                ? _clockWiseRotationTween.evaluate(_animation)
+                : _antiClockWiseRotationTween.evaluate(_animation),
             child: Image.asset(
               foodList[currentIndex].foodAssetsPath,
               width: 180,
@@ -233,10 +222,9 @@ class _CookingScreenState extends State<CookingScreen>
             child: Text(
               foodList[currentIndex].foodDescription,
               style: TextStyle(
-                color: _textColorAnimation.value,
-                fontWeight: FontWeight.w600,
-                fontSize: 16
-              ),
+                  color: _textColorAnimation.value,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16),
             ),
           )
         ],
@@ -253,7 +241,7 @@ class _CookingScreenState extends State<CookingScreen>
             )
           : null,
       body: AnimatedBuilder(
-        animation: _controller,
+        animation: _animation,
         builder: (context, child) {
           return Container(
             color: Color(0xFFF1F1F3),
