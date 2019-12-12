@@ -33,8 +33,8 @@ class _CookingScreenState extends State<CookingScreen>
   @override
   void initState() {
     super.initState();
-    _clockWiseRotationTween = Tween<double>(begin: pi, end: 2 * pi);
-    _antiClockWiseRotationTween = Tween<double>(begin: pi, end: -2 * pi);
+    _clockWiseRotationTween = Tween<double>(begin: 0.0, end: 2 * pi);
+    _antiClockWiseRotationTween = Tween<double>(begin: 0.0, end: -2 * pi);
 
     _controller = AnimationController(
       vsync: this,
@@ -121,11 +121,21 @@ class _CookingScreenState extends State<CookingScreen>
             angle: isClockWise
                 ? _clockWiseRotationTween.evaluate(_animation)
                 : _antiClockWiseRotationTween.evaluate(_animation),
-            child: Image.asset(
-              foodList[currentIndex].foodAssetsPath,
-              width: 180,
-              height: 250,
-              fit: BoxFit.fitWidth,
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  'assets/images/Oval_3.png',
+                  width: 180,
+                  height: 250,
+                  fit: BoxFit.fitWidth,
+                ),
+                Image.asset(
+                  foodList[currentIndex].foodAssetsPath,
+                  width: 180,
+                  height: 250,
+                  fit: BoxFit.fitWidth,
+                )
+              ],
             ),
           ),
         ),
@@ -157,8 +167,43 @@ class _CookingScreenState extends State<CookingScreen>
       right: 0.0,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 400),
-        color: Color(0xFF384450),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromRGBO(60, 68, 82, 1),
+              Color.fromRGBO(54, 60, 74, 1),
+              Color.fromRGBO(30, 33, 45, 1)
+            ]
+          )
+        ),
         height: blackBgHeight,
+      ),
+    );
+  }
+
+  Widget _buildWhiteBg() {
+    return Positioned(
+      bottom: 0.0,
+      left: 0.0,
+      right: 0.0,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromRGBO(245, 245, 245, 1),
+              Color.fromRGBO(235, 236, 239, 1),
+              Color.fromRGBO(223, 226, 230, 1)
+            ]
+          )
+        ),
+        child: Image.asset(
+          'assets/images/Base.png',
+          fit: BoxFit.fill,
+        ),
       ),
     );
   }
@@ -248,6 +293,7 @@ class _CookingScreenState extends State<CookingScreen>
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
+                _buildWhiteBg(),
                 _buildBlackBg(),
                 _buildText(),
                 _buildPlate(),
