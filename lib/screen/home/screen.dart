@@ -1,16 +1,13 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_animation/screen/cooking/screen.dart';
 
 import 'package:flutter_animation/utils/colors.dart' as colors;
-import 'package:flutter_animation/screen/fade_in/screen.dart';
 import 'package:flutter_animation/screen/fade_in/arguments.dart';
-import 'package:flutter_animation/screen/animation_controller/screen.dart';
-import 'package:flutter_animation/screen/chat/screen.dart';
-import 'package:flutter_animation/screen/shape_shifting/screen.dart';
+import 'package:flutter_animation/utils/routes.dart';
 
 Color randomColor() {
-  return Color((Random().nextDouble() * 0xFFFFFFFF).toInt() << 0).withOpacity(0.9);
+  return Color((Random().nextDouble() * 0xFFFFFFFF).toInt() << 0)
+      .withOpacity(0.9);
 }
 
 class HomeScreen extends StatelessWidget {
@@ -18,33 +15,39 @@ class HomeScreen extends StatelessWidget {
 
   final List<Map> cardList = <Map>[
     {
-      'routeName': FadeInScreen.routeName,
+      'routeName': Routes.fadeInScreen,
       'argument': FadeInArguments('Fade-in'),
       'title': 'Fade-in',
       'color': randomColor()
     },
     {
-      'routeName': ShapeShiftingScreen.routeName,
+      'routeName': Routes.shapeShiftingScreen,
       'argument': null,
       'title': 'Shape-shifting',
       'color': randomColor()
     },
     {
-      'routeName': AnimationScreen.routeName,
+      'routeName': Routes.animationScreen,
       'argument': null,
       'title': 'AnimationController',
       'color': randomColor()
     },
     {
-      'routeName': ChatScreen.routeName,
+      'routeName': Routes.chatScreen,
       'argument': null,
       'title': 'Chat-animation',
       'color': randomColor()
     },
     {
-      'routeName': CookingScreen.routeName,
+      'routeName': Routes.cookingScreen,
       'argument': null,
-      'title': 'Cooking Screen',
+      'title': 'Cooking UI',
+      'color': randomColor()
+    },
+    {
+      'routeName': Routes.listScreen,
+      'argument': null,
+      'title': 'Animated List',
       'color': randomColor()
     }
   ];
@@ -111,7 +114,7 @@ class HomeScreen extends StatelessWidget {
       ),
     );
 
-    Center card = Center(
+    Widget card = SingleChildScrollView(
       child: GridView.count(
         padding: const EdgeInsets.all(20),
         crossAxisCount: 2,

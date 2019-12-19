@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/screen/animated_list/screen.dart';
 import 'package:flutter_animation/screen/animation_controller/screen.dart';
 import 'package:flutter_animation/screen/chat/screen.dart';
 import 'package:flutter_animation/screen/cooking/screen.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_animation/screen/cooking/screen.dart';
 import 'package:flutter_animation/screen/home/screen.dart';
 import 'package:flutter_animation/screen/fade_in/screen.dart';
 import 'package:flutter_animation/screen/shape_shifting/screen.dart';
+import 'package:flutter_animation/utils/routes.dart';
 
 void main() => runApp(MyApp());
 
@@ -18,14 +20,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: HomeScreen.routeName,
+      initialRoute: Routes.mainScreen,
       routes: {
-        HomeScreen.routeName: (context) => HomeScreen(),
-        FadeInScreen.routeName: (context) => FadeInScreen(),
-        ShapeShiftingScreen.routeName: (context) => ShapeShiftingScreen(),
-        AnimationScreen.routeName: (context) => AnimationScreen(),
-        ChatScreen.routeName: (context) => ChatScreen(),
-        CookingScreen.routeName: (context) => CookingScreen()
+        Routes.mainScreen: (context) => HomeScreen(),
+        Routes.fadeInScreen: (context) => FadeInScreen(),
+        Routes.shapeShiftingScreen: (context) => ShapeShiftingScreen(),
+        Routes.animationScreen: (context) => AnimationScreen(),
+        Routes.chatScreen: (context) => ChatScreen(),
+        Routes.cookingScreen: (context) => CookingScreen(),
+        Routes.listScreen: (context) => ListScreen()
       },
     );
   }

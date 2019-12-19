@@ -168,16 +168,14 @@ class _CookingScreenState extends State<CookingScreen>
       child: AnimatedContainer(
         duration: Duration(milliseconds: 400),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
               Color.fromRGBO(60, 68, 82, 1),
               Color.fromRGBO(54, 60, 74, 1),
               Color.fromRGBO(30, 33, 45, 1)
-            ]
-          )
-        ),
+            ])),
         height: blackBgHeight,
       ),
     );
@@ -197,12 +195,8 @@ class _CookingScreenState extends State<CookingScreen>
               Color.fromRGBO(245, 245, 245, 1),
               Color.fromRGBO(235, 236, 239, 1),
               Color.fromRGBO(223, 226, 230, 1)
-            ]
-          )
-        ),
-        child: Image.asset(
-          'assets/images/Base.png',
-          fit: BoxFit.fill,
+            ],
+          ),
         ),
       ),
     );
