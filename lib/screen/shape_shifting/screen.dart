@@ -15,8 +15,6 @@ Color randomColor() {
 }
 
 class ShapeShiftingScreen extends StatefulWidget {
-  static const routeName = '/shapeshifting';
-
   @override
   _ShapeShiftingScreenState createState() => _ShapeShiftingScreenState();
 }

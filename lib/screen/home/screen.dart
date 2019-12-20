@@ -11,8 +11,6 @@ Color randomColor() {
 }
 
 class HomeScreen extends StatelessWidget {
-  static const routeName = '/';
-
   final List<Map> cardList = <Map>[
     {
       'routeName': Routes.fadeInScreen,
@@ -48,6 +46,12 @@ class HomeScreen extends StatelessWidget {
       'routeName': Routes.listScreen,
       'argument': null,
       'title': 'Animated List',
+      'color': randomColor()
+    },
+    {
+      'routeName': Routes.travelCardScreen,
+      'argument': null,
+      'title': 'Travel Card',
       'color': randomColor()
     }
   ];
@@ -114,15 +118,14 @@ class HomeScreen extends StatelessWidget {
       ),
     );
 
-    Widget card = SingleChildScrollView(
-      child: GridView.count(
-        padding: const EdgeInsets.all(20),
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        children: gridList,
-        shrinkWrap: true,
-      ),
+    Widget card = GridView.count(
+      padding: const EdgeInsets.all(20),
+      crossAxisCount: 2,
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+      children: gridList,
+      shrinkWrap: true,
+      physics: ScrollPhysics(),
     );
 
     return Scaffold(

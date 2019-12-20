@@ -4,8 +4,6 @@ import 'package:flutter_animation/screen/animation_controller/widgets/logo/anima
 import 'package:flutter_animation/screen/animation_controller/widgets/logo/widget.dart';
 
 class AnimationScreen extends StatefulWidget {
-  static const routeName = '/animation-controller';
-
   @override
   _AnimationScreenState createState() => _AnimationScreenState();
 }

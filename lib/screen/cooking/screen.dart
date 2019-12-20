@@ -5,8 +5,6 @@ import 'package:flutter_animation/screen/cooking/attribute.screen.dart';
 import 'package:flutter_animation/screen/cooking/model/food.dart';
 
 class CookingScreen extends StatefulWidget {
-  static const routeName = 'cooking-screen';
-
   @override
   _CookingScreenState createState() => _CookingScreenState();
 }

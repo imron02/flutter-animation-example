@@ -1,9 +1,10 @@
 class Routes {
-  static String mainScreen = '/';
-  static String fadeInScreen = '/fadein';
-  static String shapeShiftingScreen = '/shape-shifting';
-  static String animationScreen = '/animation-controller';
-  static String chatScreen = '/chatapp';
-  static String cookingScreen = '/cooking-screen';
-  static String listScreen = '/list-screen';
+  static const String mainScreen = '/';
+  static const String fadeInScreen = '/fadein';
+  static const String shapeShiftingScreen = '/shape-shifting';
+  static const String animationScreen = '/animation-controller';
+  static const String chatScreen = '/chatapp';
+  static const String cookingScreen = '/cooking-screen';
+  static const String listScreen = '/list-screen';
+  static const String travelCardScreen = '/travel-card-screen';
 }

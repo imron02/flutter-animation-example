@@ -7,8 +7,6 @@ const owl_url =
     'https://raw.githubusercontent.com/flutter/website/master/src/images/owl.jpg';
 
 class FadeInScreen extends StatefulWidget {
-  static const routeName = '/fadein';
-
   @override
   _FadeInScreenState createState() => _FadeInScreenState();
 }

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animation/screen/chat/widgets/message_list/widget.dart';
 
 class ChatScreen extends StatefulWidget {
-  static const routeName = 'chatapp';
-
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
