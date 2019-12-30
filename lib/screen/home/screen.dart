@@ -53,6 +53,12 @@ class HomeScreen extends StatelessWidget {
       'argument': null,
       'title': 'Travel Card',
       'color': randomColor()
+    },
+    {
+      'routeName': Routes.superHeroScreen,
+      'argument': null,
+      'title': 'Super Hero',
+      'color': randomColor()
     }
   ];
   final List<Widget> gridList = [];

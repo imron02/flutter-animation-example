@@ -48,13 +48,10 @@ class _TravelCardListState extends State<TravelCardList> with SingleTickerProvid
       _tween = Tween<double>(begin: -1, end: 0);
       _tweenAnim = _tween.animate(new CurvedAnimation(parent: _tweenController, curve: Curves.elasticOut))
         ..addListener(() {
-          print(_tweenAnim.value);
           _setOffset(_tweenAnim.value);
         });
     }
 
-    print('normalized');
-    print(_normalizedOffset);
     _tween.begin = _normalizedOffset;
     _tween.end = 0;
     _tweenController.reset();

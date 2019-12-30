@@ -7,6 +7,7 @@ import 'package:flutter_animation/screen/cooking/screen.dart';
 import 'package:flutter_animation/screen/home/screen.dart';
 import 'package:flutter_animation/screen/fade_in/screen.dart';
 import 'package:flutter_animation/screen/shape_shifting/screen.dart';
+import 'package:flutter_animation/screen/superhero/screen.dart';
 import 'package:flutter_animation/screen/travel_cards/screen.dart';
 import 'package:flutter_animation/utils/routes.dart';
 
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
         Routes.chatScreen: (context) => ChatScreen(),
         Routes.cookingScreen: (context) => CookingScreen(),
         Routes.listScreen: (context) => ListScreen(),
-        Routes.travelCardScreen: (context) => TravelCardScreen()
+        Routes.travelCardScreen: (context) => TravelCardScreen(),
+        Routes.superHeroScreen: (context) => SuperHeroScreen()
       },
     );
   }

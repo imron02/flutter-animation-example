@@ -47,6 +47,7 @@ flutter:
     - assets/images/London/
     - assets/images/Pisa/
     - assets/images/Budapest/
+    - assets/mock/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
