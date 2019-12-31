@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/screen/superhero/detail.dart';
 import 'package:flutter_animation/screen/superhero/models/character_list.dart';
 
 class HeroCard extends StatelessWidget {
@@ -69,6 +70,15 @@ class HeroCard extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                HeroDetail(character: character),
+                          ),
+                        );
+                      },
                       child: Row(
                         children: <Widget>[
                           Text(
