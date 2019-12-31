@@ -97,7 +97,7 @@ class _HotelListState extends State<HotelList>
         padding: const EdgeInsets.symmetric(horizontal: 18 * 1.5, vertical: 10),
         child: Container(
           width: 400,
-          height: size.height * .25,
+          height: size.height * .30,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

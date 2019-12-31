@@ -33,34 +33,36 @@ class _TravelCardScreenState extends State<TravelCardScreen> {
       appBar: AppBar(
         title: const Text('Travel Cards'),
       ),
-      body: Container(
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Expanded(child: SizedBox()),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: Text(
-                'Where are you going next?',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: TextStyle(
-                  color: Color(0xFF0e0e0e),
-                  fontSize: 36,
-                  height: 1,
-                  fontFamily: 'DMSerifDisplay',
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Text(
+                  'Where are you going next?',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: TextStyle(
+                    color: Color(0xFF0e0e0e),
+                    fontSize: 36,
+                    height: 1,
+                    fontFamily: 'DMSerifDisplay',
+                  ),
                 ),
               ),
-            ),
-            TravelCardList(
-              cities: _cityList,
-              onCityChange: _handleCityChange,
-            ),
-            HotelList(_currentCity.hotels),
-            Expanded(child: SizedBox()),
-          ],
+              TravelCardList(
+                cities: _cityList,
+                onCityChange: _handleCityChange,
+              ),
+              HotelList(_currentCity.hotels),
+              SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );
