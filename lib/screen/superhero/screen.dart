@@ -27,6 +27,7 @@ class _SuperHeroScreenState extends State<SuperHeroScreen>
   Animation<Offset> _moveAnim;
   Animation<double> _scaleAnim;
   Animation<double> _scaleCharacterAnim;
+  Animation<Color> _characterColorAnim;
 
   CurvedAnimation _curvedAnimation;
 
@@ -117,8 +118,17 @@ class _SuperHeroScreenState extends State<SuperHeroScreen>
   }
 
   Color _getCharacterColor(int cardIndex) {
+    String colorString =
+        "0xff${characters.elementAt(cardIndex).background}".replaceAll("#", "");
+    int colorInt = int.parse(colorString);
+    _characterColorAnim =
+        ColorTween(begin: Colors.grey[200], end: Color(colorInt))
+            .animate(_curvedAnimation);
+
     if (cardIndex == currentIndex) {
       return HexColor(characters.elementAt(cardIndex).background);
+    } else if (cardIndex == currentIndex + 1) {
+      return _characterColorAnim.value;
     } else {
       return Colors.grey[200];
     }
