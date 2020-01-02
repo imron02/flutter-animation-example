@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,10 +13,22 @@ class SuperHeroScreen extends StatefulWidget {
   _SuperHeroScreenState createState() => _SuperHeroScreenState();
 }
 
-class _SuperHeroScreenState extends State<SuperHeroScreen> {
+class _SuperHeroScreenState extends State<SuperHeroScreen>
+    with TickerProviderStateMixin {
   Future<Characters> apiResponse;
   List<CharacterList> characters;
   int currentIndex = 0;
+
+  Tween<double> _rotationTween;
+
+  AnimationController _controller;
+  Animation<Offset> _translationAnim;
+  Animation<double> _rotationAnim;
+  Animation<Offset> _moveAnim;
+  Animation<double> _scaleAnim;
+  Animation<double> _scaleCharacterAnim;
+
+  CurvedAnimation _curvedAnimation;
 
   @override
   void initState() {
@@ -26,6 +39,25 @@ class _SuperHeroScreenState extends State<SuperHeroScreen> {
         characters = apiResponse.data.characters;
       });
     });
+
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _translationAnim =
+        Tween<Offset>(begin: Offset(.0, .0), end: Offset(-100, 100.0))
+            .animate(_controller)
+              ..addListener(() {
+                setState(() {});
+              });
+    _rotationTween = Tween<double>(begin: .0, end: 1); 
+    _rotationAnim = _rotationTween.animate(_controller);
+
+    _curvedAnimation =
+        CurvedAnimation(parent: _controller, curve: Curves.easeOut);
+    _moveAnim = Tween<Offset>(begin: Offset(.0, -.06), end: Offset(.0, .0))
+        .animate(_curvedAnimation);
+    _scaleAnim = Tween<double>(begin: .9, end: 1).animate(_curvedAnimation);
+    _scaleCharacterAnim =
+        Tween<double>(begin: .2, end: 1).animate(_curvedAnimation);
   }
 
   Future<Characters> loadCharacters() async {
@@ -38,6 +70,8 @@ class _SuperHeroScreenState extends State<SuperHeroScreen> {
   }
 
   Widget _buildChild(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     if (characters == null) {
       return Center(child: CircularProgressIndicator());
     }
@@ -47,12 +81,31 @@ class _SuperHeroScreenState extends State<SuperHeroScreen> {
       overflow: Overflow.visible,
       children: characters.reversed.map((CharacterList character) {
         if (characters.indexOf(character) <= 2) {
-          return Align(
-            alignment: AlignmentDirectional.bottomCenter,
-            child: HeroCard(
-              character: character,
-              characterColor: _getCharacterColor(
-                characters.indexOf(character),
+          return GestureDetector(
+            onHorizontalDragEnd: _horizontalDragEnd,
+            child: Transform.translate(
+              offset: _getFlickTransformOffset(characters.indexOf(character)),
+              child: Transform.rotate(
+                angle: _getFlickRotateOffset(characters.indexOf(character)),
+                origin: Offset(0, size.height),
+                child: FractionalTranslation(
+                  translation:
+                      _getStackedCardOffset(characters.indexOf(character)),
+                  child: Transform.scale(
+                    scale: _getStackedCardScale(characters.indexOf(character)),
+                    child: Align(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      child: HeroCard(
+                        characterScaleFactor:
+                            _getCharacterScale(characters.indexOf(character)),
+                        character: character,
+                        characterColor: _getCharacterColor(
+                          characters.indexOf(character),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           );
@@ -68,6 +121,82 @@ class _SuperHeroScreenState extends State<SuperHeroScreen> {
       return HexColor(characters.elementAt(cardIndex).background);
     } else {
       return Colors.grey[200];
+    }
+  }
+
+  void _horizontalDragEnd(DragEndDetails details) {
+    if (details.primaryVelocity < 0) {
+      _rotationTween.end = 1;
+
+      _controller.forward().whenComplete(() {
+        CharacterList character = characters.removeAt(0);
+        setState(() {
+          _controller.reset();
+          characters.add(character);
+        });
+      });
+    }
+
+    if (details.primaryVelocity > 0) {
+      _rotationTween.end = -1;
+
+      _controller.forward().whenComplete(() {
+        CharacterList character = characters.removeAt(0);
+        setState(() {
+          _controller.reset();
+          characters.add(character);
+        });
+      });
+    }
+  }
+
+  Offset _getFlickTransformOffset(int cardIndex) {
+    if (cardIndex == currentIndex) {
+      return _translationAnim.value;
+    }
+
+    return Offset(.0, .0);
+  }
+
+  double _getFlickRotateOffset(int cardIndex) {
+    if (cardIndex == currentIndex) {
+      return -math.pi * _rotationAnim.value;
+    }
+
+    return .0;
+  }
+
+  Offset _getStackedCardOffset(int cardIndex) {
+    int diff = cardIndex - currentIndex;
+
+    if (cardIndex == currentIndex + 1) {
+      return _moveAnim.value;
+    } else if (diff > 0 && diff <= 2) {
+      return Offset(.0, -.06 * diff);
+    } else {
+      return Offset(.0, .0);
+    }
+  }
+
+  double _getStackedCardScale(int cardIndex) {
+    int diff = cardIndex - currentIndex;
+
+    if (cardIndex == currentIndex) {
+      return 1;
+    } else if (cardIndex == currentIndex + 1) {
+      return _scaleAnim.value;
+    } else {
+      return (1 - (0.123 * diff.abs()));
+    }
+  }
+
+  double _getCharacterScale(int cardIndex) {
+    if (cardIndex == currentIndex) {
+      return 1;
+    } else if (cardIndex == currentIndex + 1) {
+      return _scaleCharacterAnim.value;
+    } else {
+      return 0.2;
     }
   }
 

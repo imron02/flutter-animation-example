@@ -5,8 +5,12 @@ import 'package:flutter_animation/screen/superhero/models/character_list.dart';
 class HeroCard extends StatelessWidget {
   final CharacterList character;
   final Color characterColor;
+  final double characterScaleFactor;
 
-  HeroCard({@required this.character, @required this.characterColor});
+  HeroCard(
+      {@required this.character,
+      @required this.characterColor,
+      @required this.characterScaleFactor});
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +47,15 @@ class HeroCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Hero(
-                tag: character.url,
-                child: Image.asset(
-                  character.url,
-                  height: size.height * 0.5,
-                  width: size.width,
+              Transform.scale(
+                scale: characterScaleFactor,
+                child: Hero(
+                  tag: character.url,
+                  child: Image.asset(
+                    character.url,
+                    height: size.height * 0.5,
+                    width: size.width,
+                  ),
                 ),
               ),
               Padding(
