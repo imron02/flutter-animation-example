@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animation/screen/superhero/detail.dart';
 import 'package:flutter_animation/screen/superhero/models/Characters.dart';
 import 'package:flutter_animation/screen/superhero/models/character_list.dart';
 import 'package:flutter_animation/screen/superhero/widgets/card/widget.dart';
@@ -49,7 +50,7 @@ class _SuperHeroScreenState extends State<SuperHeroScreen>
               ..addListener(() {
                 setState(() {});
               });
-    _rotationTween = Tween<double>(begin: .0, end: 1); 
+    _rotationTween = Tween<double>(begin: .0, end: 1);
     _rotationAnim = _rotationTween.animate(_controller);
 
     _curvedAnimation =
@@ -84,6 +85,9 @@ class _SuperHeroScreenState extends State<SuperHeroScreen>
         if (characters.indexOf(character) <= 2) {
           return GestureDetector(
             onHorizontalDragEnd: _horizontalDragEnd,
+            onVerticalDragEnd: (DragEndDetails details) {
+              _verticalDragEnd(details, character);
+            },
             child: Transform.translate(
               offset: _getFlickTransformOffset(characters.indexOf(character)),
               child: Transform.rotate(
@@ -157,6 +161,17 @@ class _SuperHeroScreenState extends State<SuperHeroScreen>
           characters.add(character);
         });
       });
+    }
+  }
+
+  void _verticalDragEnd(DragEndDetails details, CharacterList character) {
+    if (details.primaryVelocity < 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HeroDetail(character: character),
+        ),
+      );
     }
   }
 
