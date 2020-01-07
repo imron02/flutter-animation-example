@@ -62,6 +62,12 @@ class _SuperHeroScreenState extends State<SuperHeroScreen>
         Tween<double>(begin: .2, end: 1).animate(_curvedAnimation);
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   Future<Characters> loadCharacters() async {
     String jsonString =
         await rootBundle.loadString('assets/mock/characters.json');

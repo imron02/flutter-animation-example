@@ -58,6 +58,14 @@ class _HeroDetailState extends State<HeroDetail> with TickerProviderStateMixin {
     });
   }
 
+  @override
+  void dispose() {
+    _backgroundAnimationController.dispose();
+    _titleAnimationController.dispose();
+    _detailAnimationController.dispose();
+    super.dispose();
+  }
+
   Future<bool> _onWillPop() {
     return _reverseAllAnimationAndPop();
   }
@@ -67,6 +75,7 @@ class _HeroDetailState extends State<HeroDetail> with TickerProviderStateMixin {
       _backgroundAnimationController.reverse().whenComplete(() {
         _titleAnimationController.reverse().whenComplete(() {
           Navigator.of(context).pop();
+          return Future.value(true);
         });
       });
     });
